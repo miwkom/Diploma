@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <p>Вы уже авторизированны.</p>
+        <form method="GET" action="{% url 'home' %}">
+            <button type="submit">На главную</button>
+        </form>
+    {% else %}
+        <div class="login-container">
+
+            <form method="POST" action="{% url 'LoginJWT' %}">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+                <button type="submit">Войти через JWT</button>
+                <button type="submit" formaction="{% url 'session_login' %}">Войти через сессию</button>
+            </form>
+
+            <form method="GET" action="{% url 'social:begin' 'github' %}">
+                <button type="submit">Войти через GitHub</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

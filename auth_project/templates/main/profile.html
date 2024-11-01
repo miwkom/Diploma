@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <p>Привет, {{ request.user.username }}!</p>
+        <p>email: {{ request.user.email }}</p>
+        {% if request.COOKIES.jwt_token and request.COOKIES.sessionid %}
+            <p>JWT token: {{ request.COOKIES.jwt_token }}</p>
+            <p>Session id: {{ request.COOKIES.sessionid }}</p>
+            <div class="button-container">
+                <form method="POST" action="{% url 'LogoutJWT' %}">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+        {% else %}
+            <p>Session id: {{ request.COOKIES.sessionid }}</p>
+            <div class="button-container">
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Для отображения информации требуется авторизация</p>
+    {% endif %}
+{% endblock %}

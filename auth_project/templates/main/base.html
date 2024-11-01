@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <p>Тестирование авторизации</p>
+    </header>
+    <div class=«animation-container»></div>
+    <nav>
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <button type="submit">Главная страница</button>
+        </form>
+        <form method="POST" action="{% url 'profile' %}">
+            {% csrf_token %}
+            <button type="submit">Профиль</button>
+        </form>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit">Авторизация</button>
+        </form>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
