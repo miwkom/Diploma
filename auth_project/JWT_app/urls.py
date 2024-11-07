@@ -1,6 +1,9 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from .views import LoginJWT, LogoutJWT
+
+'''
+Ссылки на авторизацию и выход из профиля для JWT.
+'''
 
 urlpatterns = [
     path('login', LoginJWT.as_view(), name='LoginJWT'),

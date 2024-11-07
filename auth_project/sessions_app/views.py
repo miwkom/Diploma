@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
+'''
+Views для авторизации через сессию
+'''
+
 def session_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')

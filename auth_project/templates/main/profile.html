@@ -24,6 +24,12 @@
                 </form>
             </div>
         {% endif %}
+        <div class="button-container">
+            <form method="POST" action="{% url 'password_change' %}">
+                {% csrf_token %}
+                <button type="submit">Сменить пароль</button>
+            </form>
+        </div>
     {% else %}
         <p>Для отображения информации требуется авторизация</p>
     {% endif %}

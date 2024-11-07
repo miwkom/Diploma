@@ -2,9 +2,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.tokens import RefreshToken
+
+'''
+LoginJWT осуществляет авторизацию, опираясь на принцип сессии, и создает куки с использованием JWT. 
+Эти куки функционируют исключительно на сайте и удаляются автоматически при закрытии браузера или по завершении сессии через LogoutJWT.
+'''
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -15,14 +19,8 @@ class LoginJWT(APIView):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-
             refresh = RefreshToken.for_user(user)
             access = str(refresh.access_token)
-            response_data = {
-                'access': access,
-                'refresh': str(refresh)
-            }
-            response = Response(response_data)
             response = redirect('profile')
             response.set_cookie(
                 key='jwt_token',
