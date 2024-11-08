@@ -25,6 +25,7 @@ JWT-библиотека: djangorestframework-simplejwt
 
 Создайте миграции и примените их:
 > python manage.py makemigrations
+
 > python manage.py migrate
 
 Запустите сервер: 
